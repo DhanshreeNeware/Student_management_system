@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+ {% include 'include/messages.html'%}
+<div class="content container-fluid">
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Staff</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Staff</li>
+                </ul>
+            </div>
+            <div class="col-auto text-right float-right ml-auto">
+                <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+                <a href="{% url 'add_staff' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card card-table">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="table_id" class="table table-hover table-center mb-0 ">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Profile Pic</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Gender</th>
+                                    <th>Birth Date</th>
+                                    <th>Experience</th>
+                                    <th>Qualification</th>
+                                    <th>Joining Date</th>
+                                    <th>Address</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for staff_member in staff %}
+                                <tr>
+                                    <td>{{ staff_member.admin.id }}</td>
+                                    <td>
+                                    {% if staff_member.admin.profile_pic %}
+                                    <img src="{{ staff_member.admin.profile_pic.url }}" alt="Profile Pic" width="50">
+                                    {% else %}
+                                    No Image
+                                    {% endif %}
+                                    </td>
+                                    <td>{{ staff_member.admin.get_full_name }}</td>
+                                    <td>{{ staff_member.admin.email }}</td>
+                                    <td>{{ staff_member.gender }}</td>
+                                    <td>{{ staff_member.birth_date }}</td>
+                                    <td>{{ staff_member.experience }}</td>
+                                    <td>{{ staff_member.qualification }}</td>
+                                    <td>{{ staff_member.joining_date }}</td>
+                                    <td>{{ staff_member.address }}</td>
+                                    <td>
+                                        <a href="{% url 'edit_staff' staff_member.id %}" class="btn btn-sm bg-success-light mr-2">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
+                                        <a href="{% url 'delete_staff' staff_member.id %}" class="btn btn-sm bg-danger-light">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
